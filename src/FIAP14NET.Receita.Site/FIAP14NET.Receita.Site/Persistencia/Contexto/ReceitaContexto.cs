@@ -10,12 +10,13 @@ namespace FIAP14NET.Receita.Site.Persistencia.Contexto
 
         public DbSet<Entidades.Ingrediente> Ingrediente { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Receita;Trusted_Connection=True;");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ReceitaMap());
             modelBuilder.ApplyConfiguration(new IngredienteMap());
+            modelBuilder.ApplyConfiguration(new IngredienteReceitaMap());
         }
     }
 }
