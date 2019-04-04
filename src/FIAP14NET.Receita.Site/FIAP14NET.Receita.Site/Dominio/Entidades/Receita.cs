@@ -12,6 +12,8 @@ namespace FIAP14NET.Receita.Site.Dominio.Entidades
         {
             this.Id = Guid.NewGuid();
             this.Status = Status.Ativo;
+            this.CriadoEm = DateTime.Now;
+            this.AlteradoEm = DateTime.Now;
         }
 
         public Receita(string descricao, string modoDePreparo)
@@ -37,6 +39,6 @@ namespace FIAP14NET.Receita.Site.Dominio.Entidades
 
         public Status Status { get; set; }
 
-        public IList<IngredienteReceita> IngredienteReceita { get; set; } = new List<IngredienteReceita>();
+        public IList<IngredienteReceita> Ingredientes { get; set; } = new List<IngredienteReceita>();
     }
 }

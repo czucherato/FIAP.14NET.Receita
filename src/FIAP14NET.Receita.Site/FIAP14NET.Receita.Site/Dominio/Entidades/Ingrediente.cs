@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using FIAP14NET.Receita.Site.Dominio.Agregadores;
 using FIAP14NET.Receita.Site.Dominio.ObjetosDeValor;
 
 namespace FIAP14NET.Receita.Site.Dominio.Entidades
@@ -12,6 +10,8 @@ namespace FIAP14NET.Receita.Site.Dominio.Entidades
         {
             this.Id = Guid.NewGuid();
             this.Status = Status.Ativo;
+            this.CriadoEm = DateTime.Now;
+            this.AlteradoEm = DateTime.Now;
         }
 
         public Ingrediente(string nome, Unidade unidade)
@@ -34,7 +34,5 @@ namespace FIAP14NET.Receita.Site.Dominio.Entidades
         public DateTime AlteradoEm { get; set; }
 
         public Status Status { get; set; }
-
-        public IList<IngredienteReceita> IngredienteReceita { get; set; } = new List<IngredienteReceita>();
     }
 }

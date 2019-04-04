@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using FIAP14NET.Receita.Site.Persistencia.Mapeamentos;
 using Entidades = FIAP14NET.Receita.Site.Dominio.Entidades;
 
@@ -17,6 +19,17 @@ namespace FIAP14NET.Receita.Site.Persistencia.Contexto
             modelBuilder.ApplyConfiguration(new ReceitaMap());
             modelBuilder.ApplyConfiguration(new IngredienteMap());
             modelBuilder.ApplyConfiguration(new IngredienteReceitaMap());
+        }
+
+        public override int SaveChanges()
+        {
+            foreach (var entry in this.ChangeTracker.Entries()
+                .Where(e => e.State == EntityState.Modified))
+            {
+                entry.Property("AlteradoEm").CurrentValue = DateTime.Now;
+            }
+
+            return base.SaveChanges();
         }
     }
 }

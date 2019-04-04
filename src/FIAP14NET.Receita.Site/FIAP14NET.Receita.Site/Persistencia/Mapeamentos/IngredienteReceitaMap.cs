@@ -12,12 +12,8 @@ namespace FIAP14NET.Receita.Site.Persistencia.Mapeamentos
 
             builder.Property(x => x.Quantidade);
 
-            builder.HasOne(x => x.Ingrediente)
-                .WithMany(y => y.IngredienteReceita)
-                .HasForeignKey(x => x.IngredienteId);
-
             builder.HasOne(x => x.Receita)
-                .WithMany(y => y.IngredienteReceita)
+                .WithMany(y => y.Ingredientes)
                 .HasForeignKey(x => x.ReceitaId);
         }
     }

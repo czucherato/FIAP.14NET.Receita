@@ -21,12 +21,10 @@ namespace FIAP14NET.Receita.Site.Persistencia.Mapeamentos
                 .IsRequired(false);
 
             builder.Property(x => x.CriadoEm)
-                .HasColumnType("datetime")
-                .ValueGeneratedOnAdd();
+                .HasColumnType("datetime");
 
             builder.Property(x => x.AlteradoEm)
-                .HasColumnType("datetime")
-                .ValueGeneratedOnAddOrUpdate();
+                .HasColumnType("datetime");
 
             builder.Property(x => x.Status)
                 .HasConversion(new EnumToStringConverter<Status>())
