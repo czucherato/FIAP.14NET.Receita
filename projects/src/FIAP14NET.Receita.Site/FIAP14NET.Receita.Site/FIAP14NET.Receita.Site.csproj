@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.Net.Compilers" Version="3.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\FIAP14NET.Receita.Core\FIAP14NET.Receita.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -13,4 +13,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FIAP14NET.Receita.Core\FIAP14NET.Receita.Core.csproj" />
+  </ItemGroup>
+
 </Project>
