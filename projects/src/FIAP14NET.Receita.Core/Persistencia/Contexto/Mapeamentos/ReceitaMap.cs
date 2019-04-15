@@ -16,6 +16,10 @@ namespace FIAP14NET.Receita.Core.Persistencia.Contexto.Mapeamentos
                 .HasColumnType("varchar(300)")
                 .IsRequired(false);
 
+            builder.Property(x => x.Ingredientes)
+                .HasColumnType("varchar(300)")
+                .IsRequired(false);
+
             builder.Property(x => x.ModoDePreparo)
                 .HasColumnType("varchar(3000)")
                 .IsRequired(false);
