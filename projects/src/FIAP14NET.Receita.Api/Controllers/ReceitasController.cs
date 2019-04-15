@@ -58,19 +58,5 @@ namespace FIAP14NET.Receita.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Houve um problema no sistema!");
             }
         }
-
-        [HttpPost("")]
-        public ActionResult<Core.Dominio.Entidades.Receita> PostReceita([FromBody]Core.Dominio.Entidades.Receita receita)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Add(receita);
-            _context.SaveChanges();
-
-            return Created($"/api/receitas/{receita.Id}", receita);
-        }
     }
 }
