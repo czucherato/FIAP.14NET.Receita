@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FIAP14NET.Receita.Core.Dominio.Entidades;
 using FIAP14NET.Receita.Core.Dominio.ViewModels;
 
 namespace FIAP14NET.Receita.Core.AutoMapper
@@ -8,6 +9,7 @@ namespace FIAP14NET.Receita.Core.AutoMapper
         public EntityToViewModelMappingProfile()
         {
             CreateMap<Dominio.Entidades.Receita, ReceitaViewModel>();
+            CreateMap<Ingrediente, IngredienteViewModel>();
         }
     }
 }

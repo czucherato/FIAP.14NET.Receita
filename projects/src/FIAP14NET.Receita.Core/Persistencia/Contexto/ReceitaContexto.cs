@@ -18,18 +18,18 @@ namespace FIAP14NET.Receita.Core.Persistencia.Contexto
             get; set;
         }
 
-        public DbSet<Entidades.Ingrediente> Ingrediente
-        {
-            get; set;
-        }
+        //public DbSet<Entidades.Ingrediente> Ingrediente
+        //{
+        //    get; set;
+        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Receita;Trusted_Connection=True;");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ReceitaMap());
-            modelBuilder.ApplyConfiguration(new IngredienteMap());
-            modelBuilder.ApplyConfiguration(new IngredienteReceitaMap());
+            //modelBuilder.ApplyConfiguration(new IngredienteMap());
+            //modelBuilder.ApplyConfiguration(new IngredienteReceitaMap());
         }
 
         public override int SaveChanges()

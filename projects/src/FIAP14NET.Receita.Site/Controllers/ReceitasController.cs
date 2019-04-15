@@ -36,8 +36,7 @@ namespace FIAP14NET.Receita.Site.Controllers
                 return NotFound();
             }
 
-            var receita = await _context.Receita
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var receita = await _context.Receita.FirstOrDefaultAsync(m => m.Id == id);
 
             if (receita == null)
             {

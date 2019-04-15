@@ -9,6 +9,8 @@ namespace FIAP14NET.Receita.Core.AutoMapper
         {
             CreateMap<ReceitaViewModel, Dominio.Entidades.Receita>()
                 .ConstructUsing(c => new Dominio.Entidades.Receita(c.Descricao, c.ModoDePreparo));
+
+            CreateMap<IngredienteViewModel, Dominio.Entidades.Ingrediente>();
         }
     }
 }
