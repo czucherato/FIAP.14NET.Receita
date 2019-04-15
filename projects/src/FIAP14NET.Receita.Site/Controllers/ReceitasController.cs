@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using FIAP14NET.Receita.Core.Dominio.Entidades;
 using FIAP14NET.Receita.Core.Persistencia.Contexto;
 using AutoMapper;
 using FIAP14NET.Receita.Core.Dominio.ViewModels;
+using FIAP14NET.Receita.Core.Dominio.ObjetosDeValor;
 
 namespace FIAP14NET.Receita.Site.Controllers
 {
@@ -66,6 +65,11 @@ namespace FIAP14NET.Receita.Site.Controllers
             {
                 var receita = _mapper.Map<Core.Dominio.Entidades.Receita>(receitaViewModel);
 
+                receita.Id = Guid.NewGuid();
+                receita.CriadoEm = DateTime.Now;
+                receita.AlteradoEm = DateTime.Now;
+                receita.Status = Status.Ativo;
+
                 _context.Add(receita);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,8 +98,10 @@ namespace FIAP14NET.Receita.Site.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, Core.Dominio.Entidades.Receita receita)
+        public async Task<IActionResult> Edit(Guid id, ReceitaViewModel receitaViewModel)
         {
+            var receita = _mapper.Map<Core.Dominio.Entidades.Receita>(receitaViewModel);
+
             if (id != receita.Id)
             {
                 return NotFound();
@@ -104,7 +110,7 @@ namespace FIAP14NET.Receita.Site.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
+                {    
                     _context.Update(receita);
                     await _context.SaveChangesAsync();
                 }
@@ -119,8 +125,10 @@ namespace FIAP14NET.Receita.Site.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(receita);
         }
 

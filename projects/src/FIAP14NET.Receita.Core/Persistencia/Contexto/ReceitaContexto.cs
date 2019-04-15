@@ -8,10 +8,10 @@ namespace FIAP14NET.Receita.Core.Persistencia.Contexto
 {
     public class ReceitaContexto : DbContext
     {
-        public ReceitaContexto(DbContextOptions<ReceitaContexto> options)
-                : base(options)
-        {
-        }
+        //public ReceitaContexto(DbContextOptions<ReceitaContexto> options)
+        //        : base(options)
+        //{
+        //}
 
         public DbSet<Entidades.Receita> Receita
         {

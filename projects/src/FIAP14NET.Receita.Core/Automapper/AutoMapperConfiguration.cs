@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using FIAP14NET.Receita.Core.AutoMapper;
 
-namespace LocalChat.Application.AutoMapper
+namespace FIAP14NET.Receita.Core.AutoMapper
 {
     public class AutoMapperConfiguration
     {
@@ -9,7 +9,7 @@ namespace LocalChat.Application.AutoMapper
         {
             return new MapperConfiguration(ps =>
             {
-                //ps.AddProfile(new EntityToViewModelMappingProfile());
+                ps.AddProfile(new EntityToViewModelMappingProfile());
                 ps.AddProfile(new ViewModelToEntityMappingProfile());
             });
         }

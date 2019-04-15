@@ -22,17 +22,35 @@ namespace FIAP14NET.Receita.Core.Dominio.Entidades
             this.ModoDePreparo = modoDePreparo;
         }
 
-        public Guid Id { get; private set; }
+        public Guid Id
+        {
+            get; set;
+        }
 
-        public string Descricao { get; set; }
+        public string Descricao
+        {
+            get; set;
+        }
 
-        public string ModoDePreparo { get; set; }
+        public string ModoDePreparo
+        {
+            get; set;
+        }
 
-        public DateTime CriadoEm { get; set; }
+        public DateTime CriadoEm
+        {
+            get; set;
+        }
 
-        public DateTime AlteradoEm { get; set; }
+        public DateTime AlteradoEm
+        {
+            get; set;
+        }
 
-        public Status Status { get; set; }
+        public Status Status
+        {
+            get; set;
+        }
 
         public IEnumerable<IngredienteReceita> Ingredientes { get; set; } = new List<IngredienteReceita>();
     }

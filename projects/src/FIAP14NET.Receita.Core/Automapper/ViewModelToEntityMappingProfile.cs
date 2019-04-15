@@ -7,7 +7,8 @@ namespace FIAP14NET.Receita.Core.AutoMapper
     {
         public ViewModelToEntityMappingProfile()
         {
-            CreateMap<ReceitaViewModel, Dominio.Entidades.Receita>();
+            CreateMap<ReceitaViewModel, Dominio.Entidades.Receita>()
+                .ConstructUsing(c => new Dominio.Entidades.Receita(c.Descricao, c.ModoDePreparo));
         }
     }
 }
