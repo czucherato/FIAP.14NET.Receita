@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using FIAP14NET.Receita.Core.Dominio.Agregadores;
 using FIAP14NET.Receita.Core.Dominio.ObjetosDeValor;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace FIAP14NET.Receita.Core.Dominio.Entidades
 {
