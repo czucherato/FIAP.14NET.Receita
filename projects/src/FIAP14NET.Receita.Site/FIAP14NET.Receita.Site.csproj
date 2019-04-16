@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\FIAP14NET.Receita.Core\FIAP14NET.Receita.Core.csproj" />
+    <ProjectReference Include="..\FIAP14NET.Receita.Core\FIAP14NET.Receita.Core.csproj" />
   </ItemGroup>
 
 </Project>

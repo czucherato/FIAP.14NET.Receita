@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP14NET.Receita.Core", "src\FIAP14NET.Receita.Core\FIAP14NET.Receita.Core.csproj", "{C7C63C4C-3880-48D2-B563-121551CC4A8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP14NET.Receita.Site", "src\FIAP14NET.Receita.Site\FIAP14NET.Receita.Site\FIAP14NET.Receita.Site.csproj", "{1354263A-0B4E-4E37-90D5-7C46B4719789}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP14NET.Receita.Site", "src\FIAP14NET.Receita.Site\FIAP14NET.Receita.Site.csproj", "{1354263A-0B4E-4E37-90D5-7C46B4719789}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Apresentação", "0 - Apresentação", "{A50F4647-DD9C-4859-B1CF-939DEE976735}"
 EndProject
