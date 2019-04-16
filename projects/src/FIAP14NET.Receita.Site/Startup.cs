@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -33,27 +34,32 @@ namespace FIAP14NET.Receita.Site
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.AddDbContext<ReceitaContexto>(options =>
-            //                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+			string connection = @"Server=(localdb)\mssqllocaldb;Database=Receita;Trusted_Connection=True;";
+			services.AddDbContext<ReceitaContexto>(options => options.UseSqlServer(connection));
+
+			//services.AddDbContext<ReceitaContexto>(options => options.UseSqlServer(connection));
+
+			//services.AddDbContext<ReceitaContexto>(options =>
+			//                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
-            services.AddScoped<ReceitaContexto>();
+			//services.AddScoped<ReceitaContextoFactory>();
 
-            //Mapper.Initialize(cfg => AutoMapperConfiguration.RegisterMappings());
+			//Mapper.Initialize(cfg => AutoMapperConfiguration.RegisterMappings());
 
-            //// Application
-            //var mappingConfig = AutoMapperConfiguration.RegisterMappings();
+			//// Application
+			//var mappingConfig = AutoMapperConfiguration.RegisterMappings();
 
-            ////IMapper mapper = mappingConfig.CreateMapper();
-            ////services.AddSingleton(mapper);
+			////IMapper mapper = mappingConfig.CreateMapper();
+			////services.AddSingleton(mapper);
 
-            //services.AddSingleton(mappingConfig.CreateMapper());
-            //services.AddScoped<IMapper>(sp =>
-            //  new Mapper(sp.GetRequiredService<IConfigurationProvider>(), sp.GetService));
+			//services.AddSingleton(mappingConfig.CreateMapper());
+			//services.AddScoped<IMapper>(sp =>
+			//  new Mapper(sp.GetRequiredService<IConfigurationProvider>(), sp.GetService));
 
-            ////services.AddScoped<IMapperConfigurationExpression>();
+			////services.AddScoped<IMapperConfigurationExpression>();
 
-            services.AddAutoMapper();
+			services.AddAutoMapper();	
 
             // Application
             var mappingConfig = AutoMapperConfiguration.RegisterMappings();
@@ -65,8 +71,6 @@ namespace FIAP14NET.Receita.Site
             //services.AddSingleton(AutoMapperConfiguration.RegisterMappings()); // n precisa de uma referencia do autommaper, pode ser singleton pra todas as requests
             // pega o servico do autommaper do http context e injeta via scoped nas classes onde vamos utilizar o automapper
             services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
-
-            
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -93,5 +97,16 @@ namespace FIAP14NET.Receita.Site
                     template: "{controller=Receitas}/{action=Index}/{id?}");
             });
         }
-    }
+
+		//public class ReceitaContextoFactory : IDesignTimeDbContextFactory<ReceitaContexto>
+		//{
+		//	public ReceitaContexto CreateDbContext(string[] args)
+		//	{
+		//		var optionsBuilder = new DbContextOptionsBuilder<ReceitaContexto>();
+		//		optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Receita;Trusted_Connection=True;");
+
+		//		return new ReceitaContexto(optionsBuilder.Options);
+		//	}
+		//}
+	}
 }

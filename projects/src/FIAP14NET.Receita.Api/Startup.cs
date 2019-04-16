@@ -33,8 +33,7 @@ namespace FIAP14NET.Receita.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            string connection = @"Server=(localdb)\mssqllocaldb;Database=Receita;Trusted_Connection=True;";
-            services.AddDbContext<ReceitaContexto>(options => options.UseSqlServer(connection));
+            services.AddDbContext<ReceitaContexto>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.Configure<GzipCompressionProviderOptions>( o => o.Level = System.IO.Compression.CompressionLevel.Fastest);
 
