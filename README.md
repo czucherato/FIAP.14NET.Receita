@@ -4,7 +4,7 @@ Aplicação para gerenciar receitas
 
 # Rodar a aplicação
 
-Abrir o command prompt na pasta FIAP14NET.Receita.Site e execute os seguinte comandos:
+Abrir o command prompt na pasta FIAP14NET.Receita.Site e executar os seguinte comandos:
 
 ```
 dotnet restore
