@@ -8,35 +8,36 @@ using FIAP14NET.Receita.Core.Persistencia.Contexto;
 using AutoMapper;
 using FIAP14NET.Receita.Core.Dominio.ViewModels;
 using FIAP14NET.Receita.Core.Dominio.ObjetosDeValor;
+using FIAP14NET.Receita.Core.Dominio.Interfaces;
 
 namespace FIAP14NET.Receita.Site.Controllers
 {
     public class ReceitasController : Controller
     {
-        private readonly ReceitaContexto _context;
+        public IReceitaRepository _repository { get; set; }
         public IMapper _mapper;
 
-        public ReceitasController(ReceitaContexto context, IMapper mapper)
+        public ReceitasController(IReceitaRepository repository, IMapper mapper)
         {
-            _context = context;
+            _repository = repository;
             _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
         {
-            var receitas = _mapper.Map<IEnumerable<ReceitaViewModel>>(await _context.Receita.ToListAsync());
+            var receitas = _mapper.Map<IEnumerable<ReceitaViewModel>>(await _repository.ObterTodosAssincrono());
 
             return View(receitas);
         }
 
-        public async Task<IActionResult> Details(Guid? id)
+        public async Task<IActionResult> Details(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var receita = await _context.Receita.FirstOrDefaultAsync(m => m.Id == id);
+            var receita = await _repository.ObterPorIdAssincrono(id);
 
             if (receita == null)
             {
@@ -69,22 +70,22 @@ namespace FIAP14NET.Receita.Site.Controllers
                 receita.AlteradoEm = DateTime.Now;
                 receita.Status = Status.Ativo;
 
-                _context.Add(receita);
-                await _context.SaveChangesAsync();
+                _repository.Adicionar(receita);
+                await _repository.SaveChangesAssincrono();
                 return RedirectToAction(nameof(Index));
             }
             return View(receitaViewModel);
         }
 
         // GET: Receitas/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        public async Task<IActionResult> Edit(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var receita = await _context.Receita.FindAsync(id);
+            var receita = await _repository.ObterPorIdAssincrono(id);
             if (receita == null)
             {
                 return NotFound();
@@ -110,8 +111,8 @@ namespace FIAP14NET.Receita.Site.Controllers
             {
                 try
                 {    
-                    _context.Update(receita);
-                    await _context.SaveChangesAsync();
+                    _repository.Editar(receita);
+                    await _repository.SaveChangesAssincrono();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -132,15 +133,14 @@ namespace FIAP14NET.Receita.Site.Controllers
         }
 
         // GET: Receitas/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var receita = await _context.Receita
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var receita = await _repository.ObterPorIdAssincrono(id);
             if (receita == null)
             {
                 return NotFound();
@@ -154,15 +154,17 @@ namespace FIAP14NET.Receita.Site.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var receita = await _context.Receita.FindAsync(id);
-            _context.Receita.Remove(receita);
-            await _context.SaveChangesAsync();
+            var receita = await _repository.ObterPorIdAssincrono(id);
+            if (receita == null)
+                return NotFound();
+            _repository.Apagar(receita);
+            await _repository.SaveChangesAssincrono();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ReceitaExists(Guid id)
         {
-            return _context.Receita.Any(e => e.Id == id);
+            return _repository.ObterTodos().Any(e => e.Id == id);
         }
     }
 }

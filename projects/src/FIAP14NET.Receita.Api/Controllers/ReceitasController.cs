@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FIAP14NET.Receita.Core.Persistencia.Contexto;
+using FIAP14NET.Receita.Core.Dominio.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,11 +10,11 @@ namespace FIAP14NET.Receita.Api.Controllers
     [ApiController]
     public class ReceitasController : Controller
     {
-        public ReceitaContexto _context { get; set; }
-
-        public ReceitasController(ReceitaContexto context)
+        public IReceitaRepository _repository { get; set; }
+        
+        public ReceitasController(IReceitaRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         [HttpGet]
@@ -24,9 +22,9 @@ namespace FIAP14NET.Receita.Api.Controllers
         {
             try
             {
-                var receitas = _context.Receita.ToList();
+                var receitas = _repository.ObterTodos();
 
-                if (receitas?.Count <= 0)
+                if (receitas == null)
                 {
                     return StatusCode(StatusCodes.Status404NotFound);
                 }
@@ -44,7 +42,7 @@ namespace FIAP14NET.Receita.Api.Controllers
         {
             try
             {
-                var receitas = _context.Receita.FirstOrDefault(a => a.Id.Equals(id));
+                var receitas = _repository.ObterPorId(id);
 
                 if (receitas == null)
                 {

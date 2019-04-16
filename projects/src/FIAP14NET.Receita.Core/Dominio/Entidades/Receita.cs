@@ -56,7 +56,7 @@ namespace FIAP14NET.Receita.Core.Dominio.Entidades
         {
             get; set;
         }
-
+        
         //public IEnumerable<IngredienteReceita> Ingredientes { get; set; } = new List<IngredienteReceita>();
     }
 }

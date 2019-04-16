@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using FIAP14NET.Receita.Core.AutoMapper;
+using FIAP14NET.Receita.Core.Dominio.Interfaces;
 using FIAP14NET.Receita.Core.Persistencia.Contexto;
+using FIAP14NET.Receita.Core.Persistencia.Contexto.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -36,30 +38,31 @@ namespace FIAP14NET.Receita.Site
 
 			string connection = @"Server=(localdb)\mssqllocaldb;Database=Receita;Trusted_Connection=True;";
 			services.AddDbContext<ReceitaContexto>(options => options.UseSqlServer(connection));
+            services.AddTransient<IReceitaRepository, ReceitaRepository>();
 
-			//services.AddDbContext<ReceitaContexto>(options => options.UseSqlServer(connection));
+            //services.AddDbContext<ReceitaContexto>(options => options.UseSqlServer(connection));
 
-			//services.AddDbContext<ReceitaContexto>(options =>
-			//                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<ReceitaContexto>(options =>
+            //                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
-			//services.AddScoped<ReceitaContextoFactory>();
+            //services.AddScoped<ReceitaContextoFactory>();
 
-			//Mapper.Initialize(cfg => AutoMapperConfiguration.RegisterMappings());
+            //Mapper.Initialize(cfg => AutoMapperConfiguration.RegisterMappings());
 
-			//// Application
-			//var mappingConfig = AutoMapperConfiguration.RegisterMappings();
+            //// Application
+            //var mappingConfig = AutoMapperConfiguration.RegisterMappings();
 
-			////IMapper mapper = mappingConfig.CreateMapper();
-			////services.AddSingleton(mapper);
+            ////IMapper mapper = mappingConfig.CreateMapper();
+            ////services.AddSingleton(mapper);
 
-			//services.AddSingleton(mappingConfig.CreateMapper());
-			//services.AddScoped<IMapper>(sp =>
-			//  new Mapper(sp.GetRequiredService<IConfigurationProvider>(), sp.GetService));
+            //services.AddSingleton(mappingConfig.CreateMapper());
+            //services.AddScoped<IMapper>(sp =>
+            //  new Mapper(sp.GetRequiredService<IConfigurationProvider>(), sp.GetService));
 
-			////services.AddScoped<IMapperConfigurationExpression>();
+            ////services.AddScoped<IMapperConfigurationExpression>();
 
-			services.AddAutoMapper();	
+            services.AddAutoMapper();	
 
             // Application
             var mappingConfig = AutoMapperConfiguration.RegisterMappings();
