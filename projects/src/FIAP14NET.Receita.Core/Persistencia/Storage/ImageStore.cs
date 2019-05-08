@@ -9,7 +9,7 @@ namespace FIAP14NET.Receita.Core.Persistencia.Storage
     public class ImageStore
     {
         CloudBlobClient blobClient;
-        string baseUri = "https://trabfiap14netstorage.blob.core.windows.net";
+        string baseUri = "https://trabfiap14netstorage.blob.core.windows.net/";
 
         public ImageStore()
         {
@@ -31,8 +31,8 @@ namespace FIAP14NET.Receita.Core.Persistencia.Storage
             var sasPolicy = new SharedAccessBlobPolicy
             {
                 Permissions = SharedAccessBlobPermissions.Read,
-                SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-15),
-                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(15)
+                SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-30),
+                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(30)
             };
 
             var container = blobClient.GetContainerReference("images");

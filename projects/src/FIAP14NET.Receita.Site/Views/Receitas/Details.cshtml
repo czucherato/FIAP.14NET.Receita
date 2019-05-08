@@ -44,11 +44,14 @@
             @Html.DisplayFor(model => model.Receita.Ingredientes)
         </dd>
 
-        <dd>
-            <img src="@Model.Uri" />
-        </dd>
+
+
     </dl>
 </div>
+<div>
+    <img src="@Model.Uri" />
+</div>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Receita.Id">Editar</a> |
     <a asp-action="Index">Voltar</a>
