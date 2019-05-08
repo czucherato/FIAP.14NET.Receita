@@ -3,6 +3,7 @@ using FIAP14NET.Receita.Core.AutoMapper;
 using FIAP14NET.Receita.Core.Dominio.Interfaces;
 using FIAP14NET.Receita.Core.Persistencia.Contexto;
 using FIAP14NET.Receita.Core.Persistencia.Contexto.Repositories;
+using FIAP14NET.Receita.Core.Persistencia.Storage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -36,9 +37,10 @@ namespace FIAP14NET.Receita.Site
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-			string connection = @"Server=(localdb)\mssqllocaldb;Database=Receita;Trusted_Connection=True;";
+			string connection = @"Server=tcp:trabfiap14net.database.windows.net,1433;Initial Catalog=MasterChef;Persist Security Info=False;User ID=fiap14net;Password=f1@p14NET;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 			services.AddDbContext<ReceitaContexto>(options => options.UseSqlServer(connection));
             services.AddTransient<IReceitaRepository, ReceitaRepository>();
+            services.AddSingleton<ImageStore>();
 
             //services.AddDbContext<ReceitaContexto>(options => options.UseSqlServer(connection));
 

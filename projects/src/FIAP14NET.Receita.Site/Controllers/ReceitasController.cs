@@ -9,6 +9,9 @@ using AutoMapper;
 using FIAP14NET.Receita.Core.Dominio.ViewModels;
 using FIAP14NET.Receita.Core.Dominio.ObjetosDeValor;
 using FIAP14NET.Receita.Core.Dominio.Interfaces;
+using FIAP14NET.Receita.Core.Persistencia.Storage;
+using Microsoft.AspNetCore.Http;
+using FIAP14NET.Receita.Site.Models;
 
 namespace FIAP14NET.Receita.Site.Controllers
 {
@@ -16,11 +19,13 @@ namespace FIAP14NET.Receita.Site.Controllers
     {
         public IReceitaRepository _repository { get; set; }
         public IMapper _mapper;
-
-        public ReceitasController(IReceitaRepository repository, IMapper mapper)
+        private readonly ImageStore _imageStore;
+        
+        public ReceitasController(IReceitaRepository repository, IMapper mapper, ImageStore imageStore)
         {
             _repository = repository;
             _mapper = mapper;
+            _imageStore = imageStore;
         }
 
         public async Task<IActionResult> Index()
@@ -37,12 +42,14 @@ namespace FIAP14NET.Receita.Site.Controllers
                 return NotFound();
             }
 
-            var receita = await _repository.ObterPorIdAssincrono(id);
+            var receita = new ReceitaDetailsViewModel();
+            receita.Receita = await _repository.ObterPorIdAssincrono(id);
 
-            if (receita == null)
+            if (receita.Receita == null)
             {
                 return NotFound();
             }
+            receita.Uri = _imageStore.UriFor(id.ToString());
 
             return View(receita);
         }
@@ -165,6 +172,31 @@ namespace FIAP14NET.Receita.Site.Controllers
         private bool ReceitaExists(Guid id)
         {
             return _repository.ObterTodos().Any(e => e.Id == id);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadImage(IFormFile image, Guid id)
+        {
+            if (image != null)
+            {
+                using (var stream = image.OpenReadStream())
+                {
+                    var imageId = await _imageStore.SaveImage(stream, id);
+                    return RedirectToAction("Details", new { id });
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult UploadImage(Guid id)
+        {
+            var imagem = new ReceitasUploadImgViewModel();
+            imagem.Id = id;            
+
+            return View(imagem);
         }
     }
 }

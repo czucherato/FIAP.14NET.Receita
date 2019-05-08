@@ -1,0 +1,22 @@
+﻿@model ReceitasUploadImgViewModel
+@{
+    ViewData["Title"] = "UploadImage";
+}
+
+<h1>Upload Image</h1>
+
+<h4>Receita</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data" asp-action="UploadImage">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="file" name="image" />
+            <input type="hidden" asp-for="Id" />
+            <hr />
+            <input class="btn btn-primary" type="submit" value="Salvar Imagem!" />
+        </form>
+    </div>
+</div>
+
+
